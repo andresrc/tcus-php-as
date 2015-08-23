@@ -2,6 +2,9 @@
 
 namespace Derquinse\PhpAS\Controller;
 
+use Derquinse\PhpAS\Model\Address;
+
+/** Controller for Address entities. */
 class AddressController
 {
     private $addresses = [];
@@ -18,12 +21,15 @@ class AddressController
     public function rcd()
     {
         $file = fopen('example.csv', 'r');
+        $id = 0;
         while (($line = fgetcsv($file)) !== false) {
-            $this->addresses[] = [
+            ++$id;
+            $this->addresses[$id] = Address::fromArray([
+            id => $id,
             name => $line[0],
             phone => $line[1],
             street => $line[2],
-            ];
+            ]);
         }
 
         fclose($file);
