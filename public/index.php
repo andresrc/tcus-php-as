@@ -1,13 +1,11 @@
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
-
-use Derquinse\PhpAS\Controller as C;
+require __DIR__.'/../bootstrap.php';
 
 $path = $_SERVER['PATH_INFO'];
 
 if ($path = '/address') {
-    $controller = new C\AddressController();
+    $controller = $module->addressController;
     $return = $controller->ex();
     echo $return;
 }
