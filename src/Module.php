@@ -21,7 +21,7 @@ class Module
     /** Constructor. Wires the object based on the configuration (TODO). */
     public function __construct($config)
     {
-        $this->addressService = new M\AddressServiceImpl();
+        $this->addressService = new M\AddressServiceImpl($config['addresses.initialData']);
         $this->addressController = new C\AddressController($this->addressService);
     }
 }
