@@ -1,6 +1,6 @@
 <?php
 
-namespace Derquinse\PhpAS;
+namespace Derquinse\PhpAS\Module;
 
 use Derquinse\PhpAS\Model as M;
 use Derquinse\PhpAS\Controller as C;
@@ -10,7 +10,7 @@ use Derquinse\PhpAS\Controller as C;
  * A real application could be formed by several modules.
  * Think of a module like the set of built and configured objects provided by a dependency injection framework.
  */
-class Module
+class AddressModule
 {
     /** Address service. */
     public $addressService;
