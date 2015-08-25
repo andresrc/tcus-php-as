@@ -4,6 +4,8 @@ namespace Derquinse\PhpAS\Model;
 
 /**
  * Tests for Address.
+ *
+ * @backupGlobals disabled
  */
 class AddressTest extends \PHPUnit_Framework_TestCase
 {
