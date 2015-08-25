@@ -24,14 +24,17 @@ class Address
     private function __construct($mixed)
     {
         if (isset($mixed['id'])) {
-            $this->id = $mixed['id'];
+            if (!is_numeric($mixed['id'])) {
+                throw new \Exception('Invalid id');
+            }
+            $this->id = 0 + $mixed['id'];
         }
-        $this->name = $mixed['name'];
+        $this->name = strval($mixed['name']);
         if (isset($mixed['phone'])) {
-            $this->phone = $mixed['phone'];
+            $this->phone = strval($mixed['phone']);
         }
         if (isset($mixed['street'])) {
-            $this->street = $mixed['street'];
+            $this->street = strval($mixed['street']);
         }
     }
 

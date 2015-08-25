@@ -22,4 +22,31 @@ interface AddressService
      * @return M\Address[] All the addresses.
      */
     public function getAddresses();
+
+    /**
+     * Creates an address.
+     *
+     * @param Address address Address to insert.
+     *
+     * @return int id Created address id.
+     */
+    public function createAddress($address);
+
+    /**
+     * Updates an address.
+     *
+     * @param Address address Address to update.
+     *
+     * @return bool True if successful, false if not found.
+     */
+    public function updateAddress($address);
+
+    /**
+     * Deletes an address.
+     *
+     * @param id address Address id to delete.
+     *
+     * @return bool True if successful, false if not found.
+     */
+    public function deleteAddress($id);
 }

@@ -84,6 +84,50 @@ class AddressRepositoryImpl extends SemRepository implements AddressRepository
         return array_values($this->addresses);
     }
 
+    /**
+     * Save a new address. If the id is not set or not found, a new one is generated.
+     *
+     * @param Address address Address to save.
+     *
+     * @return int Id of the saved address.
+     */
+    public function save($address)
+    {
+        if (!isset($address->name)) {
+            throw new \Exception('Invalid address'); // TODO: Be more specific
+        }
+        $this->load();
+        $id = $address->id;
+        if (is_null($address->id) || !array_key_exists($address->id, $this->addresses)) {
+            $id = $this->seq;
+            $address->id = $id;
+            ++$this->seq;
+        }
+        $this->addresses[$id] = $address;
+        $this->changed = true;
+
+        return $id;
+    }
+
+    /**
+     * Delete an address by id.
+     *
+     * @param int Id of the address to delete.
+     *
+     * @return bool True if found and deleted, false if not found.
+     */
+    public function delete($id)
+    {
+        $this->load();
+        if (isset($id) && array_key_exists($id, $this->addresses)) {
+            unset($this->addresses[$id]);
+
+            return true;
+        }
+
+        return false;
+    }
+
     private function load()
     {
         $this->checkTx();
