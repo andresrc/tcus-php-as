@@ -26,10 +26,11 @@ class AddressController
      */
     public function get(Request $request)
     {
-        if (count($request->getPathSegments()) == 0) {
-            $q = $request->getQuery();
-            if (array_key_exists('id', $q)) {
-                $id = $q['id'];
+        $p = $request->getPathSegments();
+        $n = count($p);
+        if ($n == 1) {
+            if (is_numeric($p[0])) {
+                $id = 0 + $p[0];
                 $address = $this->addressService->getAddressById($id);
                 if (isset($address)) {
                     return Response::ok($address);

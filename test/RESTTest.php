@@ -16,7 +16,7 @@ class RESTTest extends \PHPUnit_Framework_TestCase
         if (isset($_ENV['BASE_URI'])) {
             $this->client = new \GuzzleHttp\Client([
             'base_uri' => $_ENV['BASE_URI'],
-            'defaults' => ['exceptions' => false],
+            'defaults' => ['http_errors' => false],
             ]);
         } else {
             $this->markTestSkipped('Set BASE_URI environment variable');
@@ -25,11 +25,7 @@ class RESTTest extends \PHPUnit_Framework_TestCase
 
     public function testValidGetId()
     {
-        $response = $this->client->get('address', [
-            'query' => [
-                'id' => '3',
-            ],
-        ]);
+        $response = $this->client->get('address/3');
 
         $this->assertEquals(200, $response->getStatusCode());
 
