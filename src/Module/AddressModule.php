@@ -29,7 +29,7 @@ class AddressModule
      */
     public function __construct($config)
     {
-        $this->addressRepository = new D\AddressRepositoryImpl($config['addresses.initialData']);
+        $this->addressRepository = new D\AddressRepositoryImpl($config['addresses.initialData'], $config['addresses.dataFile']);
         $this->addressService = new S\AddressServiceImpl($this->addressRepository);
         $this->addressController = new C\AddressController($this->addressService);
     }

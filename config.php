@@ -5,3 +5,6 @@ $moduleConfig = [];
 
 /* Initial data path. */
 $moduleConfig['addresses.initialData'] = __DIR__.'/shared/data/example.csv';
+
+/* Addresses data file. */
+$moduleConfig['addresses.dataFile'] = __DIR__.'/shared/data/addresses.json';

@@ -26,10 +26,18 @@ class AddressServiceImpl implements AddressService
     public function getAddressById($id)
     {
         $this->repository->begin();
+        $ok = false;
         try {
-            return $this->repository->findById($id);
+            $a = $this->repository->findById($id);
+            $ok = true;
+
+            return $a;
         } finally {
-            $this->repository->commit();
+            if ($ok) {
+                $this->repository->commit();
+            } else {
+                $this->repository->rollback();
+            }
         }
     }
 }

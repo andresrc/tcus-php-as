@@ -19,13 +19,16 @@ abstract class SemRepository
     /**
      * Constructor.
      *
-     * @param string name File name to use to generate the semahpre key.
+     * @param string name File name to use to generate the semaphore key.
      */
     public function __construct($name)
     {
         $this->count = 0;
         $this->semKey = ftok($name, 'R');
         $this->semId = sem_get($this->semKey);
+        if (!is_resource($this->semId)) {
+            throw new \Exception('Unable to create semaphore');
+        }
     }
 
     /** Begins a transaction. */
