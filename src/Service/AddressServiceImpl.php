@@ -40,4 +40,27 @@ class AddressServiceImpl implements AddressService
             }
         }
     }
+
+    /**
+     * Returns all the known addresses.
+     *
+     * @return M\Address[] All the addresses.
+     */
+    public function getAddresses()
+    {
+        $this->repository->begin();
+        $ok = false;
+        try {
+            $a = $this->repository->findAll();
+            $ok = true;
+
+            return $a;
+        } finally {
+            if ($ok) {
+                $this->repository->commit();
+            } else {
+                $this->repository->rollback();
+            }
+        }
+    }
 }

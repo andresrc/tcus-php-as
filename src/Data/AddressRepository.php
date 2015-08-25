@@ -15,4 +15,11 @@ interface AddressRepository extends Repository
      * @return M\Address The address with the requested id or null if not found.
      */
     public function findById($id);
+
+    /**
+     * Returns all the known addresses.
+     *
+     * @return M\Address[] All the addresses.
+     */
+    public function findAll();
 }

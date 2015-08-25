@@ -15,4 +15,11 @@ interface AddressService
      * @return M\Address The address with the requested id or null if not found.
      */
     public function getAddressById($id);
+
+    /**
+     * Returns all the known addresses.
+     *
+     * @return M\Address[] All the addresses.
+     */
+    public function getAddresses();
 }

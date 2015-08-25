@@ -72,6 +72,18 @@ class AddressRepositoryImpl extends SemRepository implements AddressRepository
         return $this->addresses[$id];
     }
 
+    /**
+     * Returns all the known addresses.
+     *
+     * @return M\Address[] All the addresses.
+     */
+    public function findAll()
+    {
+        $this->load();
+        // Should make a defensive copy, skipped for the exercise.
+        return array_values($this->addresses);
+    }
+
     private function load()
     {
         $this->checkTx();

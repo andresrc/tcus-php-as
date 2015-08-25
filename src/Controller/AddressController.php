@@ -36,6 +36,8 @@ class AddressController
                     return Response::ok($address);
                 }
             }
+        } elseif ($n == 0) {
+            return Response::ok($this->addressService->getAddresses());
         }
 
         return Response::notFound();
