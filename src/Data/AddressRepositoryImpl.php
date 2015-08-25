@@ -1,23 +1,34 @@
 <?php
 
-namespace Derquinse\PhpAS\Model;
+namespace Derquinse\PhpAS\Data;
+
+use Derquinse\PhpAS\Model\Address;
 
 /**
- * Implementation of the AddressService.
+ * Implementation of the AddressRepository.
  */
-class AddressServiceImpl implements AddressService
+class AddressRepositoryImpl extends SemRepository implements AddressRepository
 {
     /** Initial data file. */
     private $initialData;
 
-    /** Constructor. */
+    /**
+     * Constructor.
+     *
+     * @param string name File name to use to generate for seed data.
+     */
     public function __construct($initialData)
     {
         $this->initialData = $initialData;
+        parent::__construct($initialData);
     }
 
-    /** Returns an address by id, or null if not found. */
-    public function getAddressById($id)
+    /**
+     * Loads an address by id.
+     *
+     * @return M\Address The address with the requested id or null if not found.
+     */
+    public function findById($id)
     {
         $addresses = $this->load();
 
@@ -45,5 +56,20 @@ class AddressServiceImpl implements AddressService
         }
 
         return $addresses;
+    }
+
+    /** Begins a transaction (internal). */
+    protected function doBegin()
+    {
+    }
+
+    /** Commits a transaction (internal). */
+    protected function doCommit()
+    {
+    }
+
+    /** Rolls back a transaction (internal). */
+    protected function doRollback()
+    {
     }
 }

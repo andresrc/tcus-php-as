@@ -1,6 +1,6 @@
 <?php
 
-namespace Derquinse\PhpAS\Model;
+namespace Derquinse\PhpAS\Service;
 
 /**
  * Interface for the AddressService.
@@ -9,6 +9,10 @@ namespace Derquinse\PhpAS\Model;
  */
 interface AddressService
 {
-    /** Returns an address by id, or null if not found. */
+    /**
+     * Returs an address by id.
+     *
+     * @return M\Address The address with the requested id or null if not found.
+     */
     public function getAddressById($id);
 }

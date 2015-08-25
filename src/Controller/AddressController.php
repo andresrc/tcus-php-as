@@ -5,7 +5,7 @@ namespace Derquinse\PhpAS\Controller;
 use Derquinse\PhpAS\Request;
 use Derquinse\PhpAS\Response;
 use Derquinse\PhpAS\Model\Address;
-use Derquinse\PhpAS\Model\AddressService;
+use Derquinse\PhpAS\Service\AddressService;
 
 /** Controller for Address entities. */
 class AddressController

@@ -2,8 +2,9 @@
 
 namespace Derquinse\PhpAS\Module;
 
-use Derquinse\PhpAS\Model as M;
+use Derquinse\PhpAS\Service as S;
 use Derquinse\PhpAS\Controller as C;
+use Derquinse\PhpAS\Data as D;
 
 /**
  * We use a module abstraction to have a single point in which to wire up every component in this module.
@@ -12,21 +13,37 @@ use Derquinse\PhpAS\Controller as C;
  */
 class AddressModule
 {
+    /** Address repository. */
+    private $addressRepository;
+
     /** Address service. */
     private $addressService;
 
     /** Address controller. */
     private $addressController;
 
-    /** Constructor. Wires the object based on the configuration (TODO). */
+    /**
+     * Constructor. Wires the object based on the configuration.
+     *
+     * @param array Configuration.
+     */
     public function __construct($config)
     {
-        $this->addressService = new M\AddressServiceImpl($config['addresses.initialData']);
+        $this->addressRepository = new D\AddressRepositoryImpl($config['addresses.initialData']);
+        $this->addressService = new S\AddressServiceImpl($this->addressRepository);
         $this->addressController = new C\AddressController($this->addressService);
     }
 
     /**
-     * @return M\AddressService Returns the address service.
+     * @return D\AddressRepository Returns the address repository.
+     */
+    public function getAddressRepository()
+    {
+        return $this->addressRepository;
+    }
+
+    /**
+     * @return S\AddressService Returns the address service.
      */
     public function getAddressService()
     {
@@ -34,7 +51,7 @@ class AddressModule
     }
 
     /**
-     * @return M\AddressController Returns the address controller.
+     * @return C\AddressController Returns the address controller.
      */
     public function getAddressController()
     {
