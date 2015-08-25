@@ -13,15 +13,31 @@ use Derquinse\PhpAS\Controller as C;
 class AddressModule
 {
     /** Address service. */
-    public $addressService;
+    private $addressService;
 
     /** Address controller. */
-    public $addressController;
+    private $addressController;
 
     /** Constructor. Wires the object based on the configuration (TODO). */
     public function __construct($config)
     {
         $this->addressService = new M\AddressServiceImpl($config['addresses.initialData']);
         $this->addressController = new C\AddressController($this->addressService);
+    }
+
+    /**
+     * @return M\AddressService Returns the address service.
+     */
+    public function getAddressService()
+    {
+        return $this->addressService;
+    }
+
+    /**
+     * @return M\AddressController Returns the address controller.
+     */
+    public function getAddressController()
+    {
+        return $this->addressController;
     }
 }
