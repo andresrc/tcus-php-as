@@ -7,4 +7,8 @@ $moduleConfig = [];
 $moduleConfig['addresses.initialData'] = __DIR__.'/shared/data/example.csv';
 
 /* Addresses data file. */
-$moduleConfig['addresses.dataFile'] = __DIR__.'/shared/data/addresses.json';
+if ($IS_TEST_ENV) {
+    $moduleConfig['addresses.dataFile'] = __DIR__.'/shared/data/addresses_test.json';
+} else {
+    $moduleConfig['addresses.dataFile'] = __DIR__.'/shared/data/addresses.json';
+}

@@ -83,4 +83,13 @@ class Response
     {
         return new self(500, ['error' => strval($msg)]);
     }
+
+    /** Builds a CREATED response. */
+    public static function created($url)
+    {
+        $r = new self(201, null);
+        $r->addHeader("Location: $url");
+
+        return $r;
+    }
 }

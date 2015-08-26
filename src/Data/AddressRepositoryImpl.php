@@ -121,6 +121,7 @@ class AddressRepositoryImpl extends SemRepository implements AddressRepository
         $this->load();
         if (isset($id) && array_key_exists($id, $this->addresses)) {
             unset($this->addresses[$id]);
+            $this->changed = true;
 
             return true;
         }

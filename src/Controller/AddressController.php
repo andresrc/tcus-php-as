@@ -18,7 +18,7 @@ class AddressController
     }
 
     /**
-     * Returns an address by id.
+     * Process GET Requests.
      *
      * @param request Request to execute.
      *
@@ -38,6 +38,75 @@ class AddressController
             }
         } elseif ($n == 0) {
             return Response::ok($this->addressService->getAddresses());
+        }
+
+        return Response::notFound();
+    }
+
+    /**
+     * Process POST Requests.
+     *
+     * @param request Request to execute.
+     *
+     * @return Response Response to send.
+     */
+    public function post(Request $request)
+    {
+        $p = $request->getPathSegments();
+        $n = count($p);
+        if ($n == 0) {
+            $a = Address::fromArray($request->getBody()); // TODO: improve error handling
+            $id = $this->addressService->createAddress($a);
+            if (!is_null($id)) {
+                return Response::created("$id");
+            }
+        }
+
+        return Response::notFound();
+    }
+
+    /**
+     * Process PUT Requests.
+     *
+     * @param request Request to execute.
+     *
+     * @return Response Response to send.
+     */
+    public function put(Request $request)
+    {
+        $p = $request->getPathSegments();
+        $n = count($p);
+        if ($n == 1) {
+            if (is_numeric($p[0])) {
+                $id = 0 + $p[0];
+                $a = Address::fromArray($request->getBody()); // TODO: improve error handling
+                if ($this->addressService->updateAddress($a)) {
+                    return Response::ok();
+                }
+            }
+        }
+
+        return Response::notFound();
+    }
+
+    /**
+     * Process DELETE Requests.
+     *
+     * @param request Request to execute.
+     *
+     * @return Response Response to send.
+     */
+    public function delete(Request $request)
+    {
+        $p = $request->getPathSegments();
+        $n = count($p);
+        if ($n == 1) {
+            if (is_numeric($p[0])) {
+                $id = 0 + $p[0];
+                if ($this->addressService->deleteAddress($id)) {
+                    return Response::ok();
+                }
+            }
         }
 
         return Response::notFound();

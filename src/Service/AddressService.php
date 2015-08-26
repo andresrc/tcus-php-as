@@ -2,6 +2,8 @@
 
 namespace Derquinse\PhpAS\Service;
 
+use Derquinse\PhpAS\Model\Address;
+
 /**
  * Interface for the AddressService.
  * Services encapsulate business logic and unit of work (e.g. transactions).
@@ -12,14 +14,14 @@ interface AddressService
     /**
      * Returs an address by id.
      *
-     * @return M\Address The address with the requested id or null if not found.
+     * @return Address The address with the requested id or null if not found.
      */
     public function getAddressById($id);
 
     /**
      * Returns all the known addresses.
      *
-     * @return M\Address[] All the addresses.
+     * @return Address[] All the addresses.
      */
     public function getAddresses();
 

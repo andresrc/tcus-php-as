@@ -10,12 +10,12 @@ abstract class View
     /** Renders a response. */
     final public function render(Response $response)
     {
-        http_response_code($response->getStatus());
         foreach ($response->getHeaders() as $h) {
-            header(h);
+            header($h);
         }
+        http_response_code($response->getStatus());
         $e = $response->getEntity();
-        if (isset($e)) {
+        if (!is_null($e)) {
             $this->renderEntity($e);
         }
     }

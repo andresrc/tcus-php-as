@@ -41,10 +41,10 @@ class Address
     public static function fromArray($mixed)
     {
         if (!is_array($mixed)) {
-            return;
+            throw new \Exception('An address must be built from an array');
         }
         if (!isset($mixed['name'])) {
-            return;
+            throw new \Exception('Name is mandatory');
         }
 
         return new self($mixed);

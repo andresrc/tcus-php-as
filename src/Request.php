@@ -94,7 +94,7 @@ class Request
         // Body request if JSON
         $body = array();
         if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/json') {
-            $body = json_decode(file_get_contents('php://input'));
+            $body = json_decode(file_get_contents('php://input'), true);
         }
 
         return new self($verb, $path, $parameters, $body);

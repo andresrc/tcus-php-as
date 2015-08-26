@@ -45,8 +45,9 @@ class MVC
                 if (array_key_exists($p[0], $this->controllers)) {
                     $c = $this->controllers[$p[0]];
                     $v = $request->getVerb();
+                    $r = $request->consume();
                     if (method_exists($c, $v)) {
-                        return $c->$v($request->consume());
+                        return $c->$v($r);
                     } else {
                         return Response::notSupported();
                     }
@@ -55,8 +56,6 @@ class MVC
 
             return Response::notFound();
         } catch (\Exception $e) {
-            throw $e;
-
             return Response::error($e->getMessage());
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+$IS_TEST_ENV = true;
+
 require_once __DIR__.'/../bootstrap.php';
 
 // Delete data file
