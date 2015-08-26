@@ -44,4 +44,29 @@ of URI namespace, and the set of provided controllers form an application, which
 The MVC application provides request and reponse abstraction, controller-level routing and dispatching. View negotiation would be also part of the
 responsibilities, though in this case only a JSON output handler is included.
 
+## Building and Testing
+
+Dependencies are managed by composer so after cloning the repository use (assuming composer is in the PATH):
+
+```
+compose install
+```
+
+Which will download dependencies and prepare the autoloading.
+
+To run the tests issue:
+
+```
+vendor/bin/phpunit --bootstrap test/bootstrap_test.php test
+```
+
+or if in an unix-like operating system just run `test.sh`.
+
+By default, only local unit tests are executed. To include the HTTP tests for the RESTful web service set the
+enviroment variable `BASE_URI` to the URL of your web server installation (the directory where `index.php`is published)
+before executing the tests.
+
+
+
+
 
