@@ -4,11 +4,12 @@ namespace Derquinse\PhpAS\Controller;
 
 use Derquinse\PhpAS\Request;
 use Derquinse\PhpAS\Response;
+use Derquinse\PhpAS\Controller;
 use Derquinse\PhpAS\Model\Address;
 use Derquinse\PhpAS\Service\AddressService;
 
 /** Controller for Address entities. */
-class AddressController
+class AddressController implements Controller
 {
     private $addressService;
 
@@ -18,97 +19,23 @@ class AddressController
     }
 
     /**
-     * Process GET Requests.
+     * Returs the resource to use to serve a request related to the addresses collection.
      *
-     * @param request Request to execute.
+     * @param Request request Current request.
      *
-     * @return Response Response to send.
+     * @return Resource The resource to address with the requested id or null if not found.
      */
-    public function get(Request $request)
-    {
+    public function getResource($request) {
         $p = $request->getPathSegments();
         $n = count($p);
         if ($n == 1) {
             if (is_numeric($p[0])) {
                 $id = 0 + $p[0];
-                $address = $this->addressService->getAddressById($id);
-                if (isset($address)) {
-                    return Response::ok($address);
-                }
+                return new AddressResource($this->addressService, $id);
             }
         } elseif ($n == 0) {
-            return Response::ok($this->addressService->getAddresses());
+            return new AddressesResource($this->addressService);
         }
-
-        return Response::notFound();
-    }
-
-    /**
-     * Process POST Requests.
-     *
-     * @param request Request to execute.
-     *
-     * @return Response Response to send.
-     */
-    public function post(Request $request)
-    {
-        $p = $request->getPathSegments();
-        $n = count($p);
-        if ($n == 0) {
-            $a = Address::fromArray($request->getBody()); // TODO: improve error handling
-            $id = $this->addressService->createAddress($a);
-            if (!is_null($id)) {
-                return Response::created("$id");
-            }
-        }
-
-        return Response::notFound();
-    }
-
-    /**
-     * Process PUT Requests.
-     *
-     * @param request Request to execute.
-     *
-     * @return Response Response to send.
-     */
-    public function put(Request $request)
-    {
-        $p = $request->getPathSegments();
-        $n = count($p);
-        if ($n == 1) {
-            if (is_numeric($p[0])) {
-                $id = 0 + $p[0];
-                $a = Address::fromArray($request->getBody()); // TODO: improve error handling
-                if ($this->addressService->updateAddress($a)) {
-                    return Response::ok();
-                }
-            }
-        }
-
-        return Response::notFound();
-    }
-
-    /**
-     * Process DELETE Requests.
-     *
-     * @param request Request to execute.
-     *
-     * @return Response Response to send.
-     */
-    public function delete(Request $request)
-    {
-        $p = $request->getPathSegments();
-        $n = count($p);
-        if ($n == 1) {
-            if (is_numeric($p[0])) {
-                $id = 0 + $p[0];
-                if ($this->addressService->deleteAddress($id)) {
-                    return Response::ok();
-                }
-            }
-        }
-
-        return Response::notFound();
+        return null;
     }
 }

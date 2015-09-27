@@ -78,6 +78,13 @@ class Response
         return new self(405, $entity);
     }
 
+    /** Builds a BAD REQUEST response. */
+    public static function badRequest()
+    {
+        return new self(400, null);
+    }
+
+
     /** Builds an ERROR response. */
     public static function error($msg)
     {

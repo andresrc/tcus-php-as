@@ -23,7 +23,7 @@ class MVC
      * Adds a controller.
      *
      * @param path string Path segment to map to the controller.
-     * @param controller object Controller object.
+     * @param controller Controller Controller object.
      */
     public function addController($path, $controller)
     {
@@ -40,16 +40,20 @@ class MVC
     public function execute(Request $request)
     {
         try {
-            $p = $request->getPathSegments();
-            if (count($p) > 0) {
-                if (array_key_exists($p[0], $this->controllers)) {
-                    $c = $this->controllers[$p[0]];
-                    $v = $request->getVerb();
-                    $r = $request->consume();
-                    if (method_exists($c, $v)) {
-                        return $c->$v($r);
-                    } else {
-                        return Response::notSupported();
+            $segments = $request->getPathSegments();
+            if (count($segments) > 0) {
+                $firstSegment = $segments[0];
+                if (array_key_exists($firstSegment, $this->controllers)) {
+                    $controller = $this->controllers[$firstSegment];
+                    $controllerRequest = $request->consume();
+                    $resource = $controller->getResource($controllerRequest);
+                    if (isset($resource)) {
+                        $verb = $request->getVerb();
+                        if (method_exists($resource, $verb)) {
+                            return $resource->$verb($controllerRequest);
+                        } else {
+                            return Response::notSupported();
+                        }
                     }
                 }
             }
